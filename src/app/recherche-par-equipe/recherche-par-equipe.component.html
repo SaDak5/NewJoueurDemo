@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+        <label>Categories </label>
+        <select class="form-control form-control-lg" id="idEq" name="idEq"
+        [(ngModel)]="IdEquipe" (change)="onChange()">
+        <option *ngFor="let cat of equipes" value="{{cat.idEq}}">
+        {{cat.nomEqp}}
+         </option>
+        </select>
+        </div>
+    
+    <div class="card shadow mb-4">
+    <div class="card-body">
+    <table class="table table-striped">
+    <thead>
+        <tr> <th>Num</th><th>Nom</th> <th>Post</th> <th>Date Naissance</th>   <th>Equipe</th> </tr>
+    
+    </thead>
+    <tbody *ngFor="let joueur of joueurs">
+    <tr >
+        <td>{{joueur.numJoueur}}</td>
+        <td>{{joueur.nomJoueur}}</td>
+        <td>{{joueur.postJoueur}}</td>
+        <td>{{joueur.dateNaissance | date:'dd/MM/yyyy'}}</td>
+        <td>{{joueur.equipe.nomEqp}}</td>  
+        <!-- <td><a class="btn btn-danger" (click)="supprimerJoueur(joueur)">Supprimer</a></td>
+        <td><a class="btn btn-warning" [routerLink]="['/updateJoueur',joueur.numJoueur]">Modifier</a></td> -->
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>

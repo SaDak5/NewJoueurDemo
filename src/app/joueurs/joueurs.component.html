@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="card shadow mb-4">
+    <div class="card-body">
+    <table class="table table-striped">
+    <thead>
+        <tr> <th>Num</th><th>Nom</th> <th>Post</th> <th>Date Naissance</th>   <th>Categorie</th> </tr>
+    
+    </thead>
+    <tbody *ngFor="let joueur of joueurs">
+    <tr >
+        <td>{{joueur.numJoueur}}</td>
+        <td>{{joueur.nomJoueur}}</td>
+        <td>{{joueur.postJoueur}}</td>
+        <td>{{joueur.dateNaissance | date:'dd/MM/yyyy'}}</td>
+          <td>{{joueur.equipe.nomEqp}}</td>  
+        <td><a class="btn btn-danger" (click)="supprimerJoueur(joueur)">Supprimer</a></td>
+        <td><a class="btn btn-warning" [routerLink]="['/updateJoueur',joueur.numJoueur]">Modifier</a></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>

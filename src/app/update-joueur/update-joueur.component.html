@@ -1,0 +1,38 @@
+<div class="container">
+    <div>
+    <h2>Modifier un Joueur :</h2>
+    </div>
+    <form >
+    <div   class="col-sm-2 col-md-2 col-lg-2">
+    <label >Num Joueur</label>
+    <input   readonly type="text" [(ngModel)]="currentJoueur.numJoueur" name="numJoueur" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4" >
+    <label >Nom Joueur</label>
+    <input type="text"[(ngModel)]= "currentJoueur.nomJoueur" name="nomJoueur" class="form-control">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+    <label >Post Joueur</label>
+    <input type="text" [(ngModel)]= "currentJoueur.postJoueur" name="postJoueur" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+
+        <label >Date Naissance</label>
+<input type="date" [ngModel]="currentJoueur.dateNaissance| date: 'yyyy-MM-dd'"(ngModelChange)=" currentJoueur.dateNaissance= $event" name="dateNaissance" class="form-control">
+</div>
+
+ <div class="col-sm-4 col-md-4 col-lg-4">
+    <label>Categorie</label>
+    <select class="form-control form-control-lg" id="idEq" name="idEq"
+    [(ngModel)]="updatedCatEq">
+    <option *ngFor="let cat of equipes" [value]="cat.idEq" >
+    {{cat.nomEqp}}
+    </option>
+    </select>
+    </div> 
+
+<div class="mt-2">
+<button type="submit" (click)="updateJoueur()" class="btn btn-success">Modifer</button>
+</div>
+</form>
+</div>
