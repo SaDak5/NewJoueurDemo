@@ -31,6 +31,9 @@
             [(ngModel)]="newIdEq">
              <option *ngFor="let cat of equipes" [value]="cat.idEq" >
              {{cat.nomEqp}}
+             {{cat.nomStade}}
+             {{cat.anneeCreation}}
+             
             </option>
             </select>
             </div> 

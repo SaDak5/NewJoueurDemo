@@ -4,7 +4,7 @@ import { Equipe} from '../model/equipe.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EquipeWrapper } from '../model/equipeWrapped.model';
-
+import { AuthService } from './auth.service';
 const httpOptions = {
   headers: new HttpHeaders( {'Content-Type': 'application/json'} )
   };
@@ -20,7 +20,7 @@ export class JoueurService {
   joueurs!: Joueur[]; //un tableau de Joueur
 /*equipes :Equipe[];*/
 
-constructor(private http : HttpClient) {
+constructor(private http : HttpClient,private authService :AuthService) {
   }
 
   
@@ -28,18 +28,24 @@ constructor(private http : HttpClient) {
 
 
 listeJoueur(): Observable<Joueur[]>{
-  return this.http.get<Joueur[]>(this.apiURL);
+  
+      return this.http.get<Joueur[]>(this.apiURL+"/all");
   }
   
   ajouterJoueur( prod: Joueur):Observable<Joueur>{
-    return this.http.post<Joueur>(this.apiURL, prod, httpOptions);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer "+jwt;
+    let httpHeaders = new HttpHeaders({"Authorization":jwt})
+      return this.http.post<Joueur>(this.apiURL+"/addjou", prod, {headers:httpHeaders});
     }
     
 
     supprimerJoueur(id : number) {
-      const url = `${this.apiURL}/${id}`;
-      console.log(url)
-      return this.http.delete(url, httpOptions);
+      const url = `${this.apiURL}/deljou/${id}`;
+      let jwt = this.authService.getToken();
+      jwt = "Bearer "+jwt;
+      let httpHeaders = new HttpHeaders({"Authorization":jwt})
+      return this.http.delete(url, {headers:httpHeaders});
       }
       
 
@@ -47,19 +53,28 @@ listeJoueur(): Observable<Joueur[]>{
 
   
       consulterJoueur(id: number): Observable<Joueur> {
-        const url = `${this.apiURL}/${id}`;
-        return this.http.get<Joueur>(url);
+        const url = `${this.apiURL}/getbyid/${id}`;
+        let jwt = this.authService.getToken();
+        jwt = "Bearer "+jwt;
+        let httpHeaders = new HttpHeaders({"Authorization":jwt})
+        return this.http.get<Joueur>(url,{headers:httpHeaders});
         }
         
 
 
 updateJoueur(prod :Joueur) : Observable<any>
 {
-return this.http.put<Joueur>(this.apiURL, prod, httpOptions);
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt})
+  return this.http.put<Joueur>(this.apiURL+"/updatejou", prod, {headers:httpHeaders});
 }
 
 listeEquipes():Observable<EquipeWrapper>{
-  return this.http.get<EquipeWrapper>(this.apiURLCat);
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt})
+   return this.http.get<EquipeWrapper>(this.apiURLCat,{headers:httpHeaders});
   }
   
   
@@ -86,7 +101,7 @@ consulterEquipe(id:number): Equipe{
 
   rechercherParEquipe(idEq: number): Observable<Joueur[]> {
     const url = `${this.apiURL}/jrseq/${idEq}`;
-    return this.http.get<Joueur[]>(url);
+        return this.http.get<Joueur[]>(url);
   }
       
 
@@ -94,5 +109,9 @@ consulterEquipe(id:number): Equipe{
     const url = `${this.apiURL}/jrsByName/${nom}`;
     return this.http.get<Joueur[]>(url);
     }
+    ajouterEquipe( cat: Equipe):Observable<Equipe>{
+      return this.http.post<Equipe>(this.apiURLCat, cat, httpOptions);
+      }
+      
     
 }

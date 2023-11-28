@@ -1,0 +1,26 @@
+<app-update-equipe 
+[equipe]="updatedEqp"
+[ajout]="ajout"
+(equipeUpdated)= "equipeUpdated($event)" >
+</app-update-equipe>
+<div class="container">
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4">  
+</div>
+    <div class="card shadow mb-4">
+    <div class="card-body">
+    <table class="table table-striped">
+    <thead>
+    <tr> <th>Id</th><th>Nom Equipe</th> </tr>
+    </thead>
+    <tbody *ngFor="let cat of equipes">
+    <tr>
+    <td>{{cat.idEq}}</td>
+    <td>{{cat.nomEqp}}</td>
+    <td><a class="btn btn-success" (click)="updateEq(cat)">Editer</a></td>
+
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
