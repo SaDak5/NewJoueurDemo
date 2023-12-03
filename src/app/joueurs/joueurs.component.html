@@ -3,7 +3,7 @@
     <div class="card-body">
     <table class="table table-striped">
     <thead>
-        <tr> <th>Num</th><th>Nom</th> <th>Post</th> <th>Date Naissance</th>   <th>Equipe</th> </tr>
+        <tr> <th>Num</th><th>Nom</th> <th>Post</th> <th>Date Naissance</th> <th>Equipe</th><th>Image</th> </tr>
     
     </thead>
     <tbody *ngFor="let joueur of joueurs">
@@ -13,6 +13,12 @@
         <td>{{joueur.postJoueur}}</td>
         <td>{{joueur.dateNaissance | date:'dd/MM/yyyy'}}</td>
           <td>{{joueur.equipe.nomEqp}}</td>  
+
+          <td><img class="card-img-top img-responsive"
+            src = "{{joueur.imageStr}}"
+            style = "height :50px;width:100px">
+            </td>
+
         <td><a *ngIf="authService.isAdmin()"  class="btn btn-danger" (click)="supprimerJoueur(joueur)">Supprimer</a></td>
         <td><a *ngIf="authService.isAdmin()" class="btn btn-warning" [routerLink]="['/updateJoueur',joueur.numJoueur]">Modifier</a></td>
     </tr>

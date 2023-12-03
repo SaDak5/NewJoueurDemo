@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Joueur } from '../model/joueur.model';
 import { JoueurService } from '../services/joueur.service';
 import { AuthService } from '../services/auth.service';
+import { Image } from '../model/image.model';
 
 
 @Component({
@@ -28,6 +29,14 @@ public authService: AuthService){
     
     this.joueurs = prods;
     console.log(prods);
+
+    this.joueurs.forEach((prod) => {
+      this.joueurService
+      .loadImage(prod.image.idImage)
+      .subscribe((img: Image) => {
+      prod.imageStr = 'data:' + img.type + ';base64,' + img.image;
+      });
+      });
     });
     }
     supprimerJoueur(p: Joueur)
